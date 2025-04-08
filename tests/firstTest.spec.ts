@@ -58,3 +58,14 @@ test('locating child elements', async({page}) => {
 
     await page.locator('nb-card').nth(3).getByRole('button').click() //AVOID
 })
+
+test('locating parent elements', async({page}) => {
+    await page.locator('nb-card', {hasText: "Using the Grid"}).getByPlaceholder('Email').click()
+    await page.locator('nb-card', {has: page.locator('#inputEmail1')}).getByPlaceholder('Email').click()
+    await page.locator('nb-card').filter({hasText: "Basic form"}).getByPlaceholder('Email').click()
+    await page.locator('nb-card').filter({has: page.locator('.status-danger')}).getByPlaceholder('Password').click()
+
+    await page.locator('nb-card').filter({has: page.locator('nb-checkbox')}).filter({hasText: "Sign in"}).getByPlaceholder('Email').click()
+
+    await page.locator(':text-is("Using the Grid")').locator('..').getByPlaceholder('Email').click()
+})
