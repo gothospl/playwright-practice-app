@@ -35,7 +35,7 @@ test.describe('Form Layouts page', () => {
         await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
 
         await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).check({force:true})
-        expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
-        expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
+        await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).not.toBeChecked()
+        await expect(usingTheGridForm.getByRole('radio', {name: "Option 2"})).toBeChecked()
     })
 })
