@@ -113,7 +113,7 @@ test('dialog boxes', async({page}) => {
     await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')
 })
 
-test('web tables 1', async({page}) => {
+test('web tables', async({page}) => {
     await page.getByText('Tables & Data').click()
     await page.getByText('Smart Table').click()
 
@@ -133,4 +133,24 @@ test('web tables 1', async({page}) => {
     await page.locator('input-editor').getByPlaceholder('E-mail').fill('test@test.com')
     await page.locator('.nb-checkmark').click()
     await expect(targetRowById.locator('td').nth(5)).toHaveText('test@test.com')
+
+    //3 test filter of the table
+    const ages = ['20', '30', '40', '200']
+
+    for(let age of ages){
+        await page.locator('input-filter').getByPlaceholder('Age').clear()
+        await page.locator('input-filter').getByPlaceholder('Age').fill(age)
+        await page.waitForTimeout(300)
+        const filteredRows = page.locator('tbody tr')
+
+        for(let row of await filteredRows.all()){
+            const cellValue = await row.locator('td').last().textContent()
+
+            if(age == '200'){
+                expect(await page.getByRole('table').textContent()).toContain('No data found')
+            } else {
+                expect(cellValue).toEqual(age)
+            }
+        }
+    }
 })
