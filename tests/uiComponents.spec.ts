@@ -162,6 +162,21 @@ test('date picker', async({page}) => {
     const calendarInputField = page.getByPlaceholder("Form Picker")
     await calendarInputField.click()
 
-    await page.locator('[class="day-cell ng-star-inserted"]').getByText('1', {exact: true}).click()
-    await expect(calendarInputField).toHaveValue('Apr 1, 2025')
+    let date = new Date()
+    date.setDate(date.getDate() + 500)
+    const expectedDate = date.getDate().toString()
+    const expectedMonthShort = date.toLocaleString('En-US', {month: 'short'})
+    const expectedMonthLong = date.toLocaleString('En-US', {month: 'long'})
+    const expectedYear = date.getFullYear()
+    const dateToAssert = `${expectedMonthShort} ${expectedDate}, ${expectedYear}`
+
+    let calendarMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()
+    const expectedMonthandYear = ` ${expectedMonthLong} ${expectedYear} `
+    while(!calendarMonthAndYear.includes(expectedMonthandYear)){
+        await page.locator('nb-calendar-pageable-navigation [data-name="chevron-right"]').click()
+        calendarMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()
+    }
+
+    await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click()
+    await expect(calendarInputField).toHaveValue(dateToAssert)
 })
