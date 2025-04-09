@@ -40,24 +40,50 @@ test.describe('Form Layouts page', () => {
     })
 })
 
-test.describe('Toastr Page', () => {
-    test.beforeEach(async({page}) => {
-        await page.getByText('Modal & Overlays').click()
-        await page.getByText('Toastr').click()
-    })
+test('checkboxes', async({page}) => {
+    await page.getByText('Modal & Overlays').click()
+    await page.getByText('Toastr').click()
+    await page.getByRole('checkbox', {name: "Hide on click"}).uncheck({force:true})
+    await page.getByRole('checkbox', {name: "Prevent arising of duplicate toast"}).check({force:true})
+    
+    const allBoxes = page.getByRole('checkbox');
+    for(const box of await allBoxes.all()){
+        await box.check({force:true})
+        await expect(box).toBeChecked()
+    }
+    for(const box of await allBoxes.all()){
+        await box.uncheck({force:true})
+        await expect(box).not.toBeChecked()
+    }
+})
 
-    test('checkboxes', async({page}) => {
-        await page.getByRole('checkbox', {name: "Hide on click"}).uncheck({force:true})
-        await page.getByRole('checkbox', {name: "Prevent arising of duplicate toast"}).check({force:true})
+test('Lists and dropdowns', async({page}) => {
+    const dropDownMenu = page.locator('ngx-header nb-select')
+    await dropDownMenu.click()
 
-        const allBoxes = page.getByRole('checkbox');
-        for(const box of await allBoxes.all()){
-            await box.check({force:true})
-            await expect(box).toBeChecked()
-        }
-        for(const box of await allBoxes.all()){
-            await box.uncheck({force:true})
-            await expect(box).not.toBeChecked()
-        }
-    })
+    //page.getByRole('list') when the list has a UL tag
+    //page.getByRole('listitem') when the list has a LI tag
+
+    //const optionList = page.getByRole('list').locator('nboption')
+
+    const optionList = page.locator('nb-option-list nb-option')
+    await expect(optionList).toHaveText(['Light', 'Dark', 'Cosmic', 'Corporate'])
+    await optionList.filter({hasText: "Cosmic"}).click()
+    const header = page.locator('nb-layout-header')
+    await expect(header).toHaveCSS('background-color', 'rgb(50, 50, 89)')
+
+    const colors = {
+        "Light": "rgb(255, 255, 255)",
+        "Dark": "rgb(34, 43, 69)",
+        "Cosmic": "rgb(50, 50, 89)",
+        "Corporate": "rgb(255, 255, 255)"
+    }
+
+    await dropDownMenu.click()
+    for(const color in colors){
+        await optionList.filter({hasText: color}).click()
+        await expect(header).toHaveCSS('background-color', colors[color])
+        if(color != "Corporate")
+            await dropDownMenu.click()
+    }
 })
