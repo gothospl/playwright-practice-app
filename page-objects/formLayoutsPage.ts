@@ -17,6 +17,12 @@ export class FormLaoyutsPage {
         await usingTheGridForm.getByRole('button').click()
     }
 
+    /**
+     * This method will fill out the Inline form with user details
+     * @param name - should be first and last name
+     * @param email - should be a valid email address
+     * @param rememberMe - true or false if user session is to be saved
+     */
     async submitInlineFormWithNameEmailAndCHeckbox(name: string, email: string, rememberMe: boolean){
         const usingTheInlineForm = this.page.locator('nb-card ', {hasText: "Inline form"})
         await usingTheInlineForm.getByRole('textbox', {name: 'Jane Doe'}).fill(name)
