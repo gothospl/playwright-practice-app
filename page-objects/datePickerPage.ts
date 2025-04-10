@@ -1,12 +1,11 @@
 import { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { HelperBase } from "./helperbase";
 
-export class DatepickerPage {
+export class DatepickerPage extends HelperBase{
     
-    private readonly page: Page
-
     constructor(page: Page){
-        this.page = page
+        super(page)
     }
 
     async selectCommonDatepickerDateFromToday(numberOfDaysFromToday: number){

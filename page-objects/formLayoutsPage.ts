@@ -1,12 +1,10 @@
 import { Page } from "@playwright/test";
-import { using } from "rxjs";
+import { HelperBase } from "./helperbase";
 
-export class FormLaoyutsPage {
-
-    private readonly page: Page
+export class FormLaoyutsPage extends HelperBase {
 
     constructor(page: Page){
-        this.page = page
+        super(page)
     }
 
     async submitUsingTheGridFormWithCredentialsAndSelectOption(email: string, password: string, optionText: string){

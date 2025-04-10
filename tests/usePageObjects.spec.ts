@@ -7,6 +7,7 @@ test.beforeEach(async({page}, testInfo) => {
 
 test('navigate to form page', async({page}) => {
     const pm = new PageManager(page)
+    
     await pm.navigateTo().formLaoyutsPage()
     await pm.navigateTo().datepickerPage()
     await pm.navigateTo().smartTablePage()
