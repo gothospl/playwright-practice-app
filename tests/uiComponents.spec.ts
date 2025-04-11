@@ -1,11 +1,11 @@
 import {test, expect} from '@playwright/test'
 
-test.describe.configure({mode: 'parallel'})
+//test.describe.configure({mode: 'parallel'})
 
 test.beforeEach(async({page}, testInfo) => {
     await page.goto('http:/localhost:4200')
 })
-
+//test.describe.parallel()
 test.describe('Form Layouts page', () => {
     test.describe.configure({retries: 2})
     test.beforeEach(async({page}) => {
