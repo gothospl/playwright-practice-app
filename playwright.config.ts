@@ -42,7 +42,7 @@ export default defineConfig<TestOptions>({
       name: 'firefox',
       use: { 
         browserName: 'firefox'
-      }
+      }      
     },
     {
       name: 'pageObjectFullScreen',
