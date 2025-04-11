@@ -1,11 +1,13 @@
 import {test, expect} from '@playwright/test'
 
+test.describe.configure({mode: 'parallel'})
+
 test.beforeEach(async({page}, testInfo) => {
     await page.goto('http:/localhost:4200')
 })
 
 test.describe('Form Layouts page', () => {
-    test.describe.configure({retries: 4})
+    test.describe.configure({retries: 2})
     test.beforeEach(async({page}) => {
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
@@ -19,14 +21,14 @@ test.describe('Form Layouts page', () => {
 
         await usingTheGridEmailInput.fill("test@test.com")
         await usingTheGridEmailInput.clear()
-        await usingTheGridEmailInput.pressSequentially("test2@test.com", {delay: 100})
+        await usingTheGridEmailInput.pressSequentially("test2@test.com")
 
         //generic assertion
         const inputValue = await usingTheGridEmailInput.inputValue()
         expect(inputValue).toEqual('test2@test.com')
 
         //locator assertion
-        await expect(usingTheGridEmailInput).toHaveValue('test2@test.com1')
+        await expect(usingTheGridEmailInput).toHaveValue('test2@test.com')
     })
 
     test('radio buttons', async({page}) => {
