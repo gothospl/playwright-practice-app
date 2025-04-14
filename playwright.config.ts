@@ -11,7 +11,11 @@ export default defineConfig<TestOptions>({
   },
 
   retries: 1,
-  reporter: 'html',
+  reporter: [
+    ['json', {outputFile: 'test-results/jsonReport.json'}],
+    ['junit', {outputFile: 'test-results/junitReport.xml'}],
+    ['allure-playwright']
+],
 
   use: {
     baseURL: process.env.DEV == '1' ? 'http://localhost:4201/'
