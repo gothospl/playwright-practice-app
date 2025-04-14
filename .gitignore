@@ -50,8 +50,6 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 playwright-report/index.html
-screenshots/formsLayoutsPage.png
-screenshots/inlineForm.png
 
 # Allure
 /allure-report
