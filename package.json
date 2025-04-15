@@ -1,14 +1,28 @@
 {
   "name": "ngx-admin",
   "version": "10.0.0",
-  "license": "MIT",
+  "description": "This is modified and more lightweight version of original application to practice UI Automation with Playwright.",
+  "homepage": "https://github.com/bondar-artem/pw-practice-app#readme",
+  "bugs": {
+    "url": "https://github.com/bondar-artem/pw-practice-app/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bondar-artem/pw-practice-app.git"
   },
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "pageObjects-chromium": "npx playwright test usePageObjects.spec.ts --project=chromium",
+    "pageObjects-firefox": "npx playwright test usePageObjects.spec.ts --project=firefox",
+    "pageObjects-all": "npm run pageObjects-chromium && npm run pageObjects-firefox"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
@@ -26,6 +40,7 @@
     "@nebular/security": "10.0.0",
     "@nebular/theme": "10.0.0",
     "@swimlane/ngx-charts": "^20.1.2",
+    "allure-playwright": "^3.2.1",
     "angular2-chartjs": "0.4.1",
     "bootstrap": "4.3.1",
     "classlist.js": "1.1.20150312",
@@ -58,12 +73,16 @@
     "@angular/compiler-cli": "^14.2.12",
     "@angular/language-service": "14.2.12",
     "@compodoc/compodoc": "^1.1.19",
+    "@faker-js/faker": "^9.6.0",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@playwright/test": "^1.51.1",
     "@types/leaflet": "1.2.3",
     "@types/node": "^12.12.70",
     "codelyzer": "^0.0.28",
     "conventional-changelog-cli": "^2.2.2",
+    "dotenv": "^16.5.0",
+    "i": "^0.3.7",
+    "npm": "^11.3.0",
     "npm-run-all": "4.0.2",
     "rimraf": "2.6.1",
     "stylelint": "^15.6.0",

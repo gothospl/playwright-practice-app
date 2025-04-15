@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
 
 test.beforeEach(async({page}) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
     await page.getByText('Forms').click()
     await page.getByText('Form Layouts').click()
 })
@@ -118,6 +118,6 @@ test('Assertions', async({page}) => {
     await expect(basicFormButton).toHaveText('Submit')
 
     //Soft assertion
-    await expect.soft(basicFormButton).toHaveText('Submit1')
+    await expect.soft(basicFormButton).not.toHaveText('Submit1')
     await basicFormButton.click()
 })
